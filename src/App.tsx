@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import { BlockCard } from './components/BlockCard'
 import { Legend } from './components/Legend'
+import { ShareLinks } from './components/ShareLinks'
 import { SongPanel } from './components/SongPanel'
 import { Vocab } from './components/Vocab'
 import { azhdahakBlocks, azhdahakMeta } from './data/azhdahak'
 import { ebiMeta } from './data/ebi'
 
-type Tab = 'azhdahak' | 'ebi' | 'vocab' | 'plan'
+type Tab = 'azhdahak' | 'ebi' | 'vocab' | 'plan' | 'share'
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>('azhdahak')
+  const [tab, setTab] = useState<Tab>('share')
 
   const tabs: { id: Tab; label: string }[] = [
+    { id: 'share', label: 'لینک و کیوآر' },
     { id: 'azhdahak', label: 'اژدهاک' },
     { id: 'ebi', label: 'شب مرد تنها' },
     { id: 'vocab', label: 'تلفظ' },
@@ -92,9 +94,11 @@ export default function App() {
         ))}
       </nav>
 
-      <Legend />
+      {tab !== 'share' && <Legend />}
 
       <main className="mt-5 space-y-5">
+        {tab === 'share' && <ShareLinks />}
+
         {tab === 'azhdahak' && (
           <>
             <div className="rounded-2xl border border-[var(--line)] bg-[var(--stage)] p-5 text-center">
