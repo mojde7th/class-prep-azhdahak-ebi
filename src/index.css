@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #1a1410;
+  --ink-soft: #3d342c;
+  --paper: #ebe4d8;
+  --paper-deep: #ddd3c2;
+  --loud: #9a3412;
+  --stretch: #0f5c4c;
+  --soft: #5c5349;
+  --pause: #7a6a4f;
+  --accent: #b45309;
+  --line: #c9bba6;
+  --stage: #f3eee4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Vazirmatn", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 120% 80% at 100% 0%, #d9cbb4 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 0% 100%, #cfc3ae 0%, transparent 50%),
+    linear-gradient(165deg, #e8dfd0 0%, #ebe4d8 45%, #e2d8c8 100%);
+}
+
+.literary {
+  font-family: "Scheherazade New", "Vazirmatn", serif;
+  font-size: 1.35rem;
+  line-height: 2.15;
+}
+
+@media (min-width: 768px) {
+  .literary {
+    font-size: 1.55rem;
+    line-height: 2.25;
+  }
+}
+
+.mark-loud {
+  color: var(--loud);
+  font-weight: 800;
+}
+
+.mark-stretch {
+  color: var(--stretch);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  text-decoration-style: wavy;
+}
+
+.mark-soft {
+  color: var(--soft);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.mark-pause {
+  color: var(--pause);
+  font-weight: 600;
+  opacity: 0.85;
+  user-select: none;
+  padding-inline: 0.15em;
+}
+
+.seg-note {
+  display: block;
+  margin-top: 0.35rem;
+  margin-bottom: 0.85rem;
+  font-family: "Vazirmatn", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.45);
+  border-right: 3px solid var(--accent);
+  padding: 0.55rem 0.85rem;
+}
+
+.phon {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 0.82em;
+  color: #4a5560;
+}
