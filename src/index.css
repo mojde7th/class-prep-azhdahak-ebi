@@ -94,3 +94,50 @@ body {
   font-size: 0.82em;
   color: #4a5560;
 }
+
+.clean-sheet {
+  box-shadow: none;
+}
+
+.clean-title {
+  font-family: "Scheherazade New", "Vazirmatn", serif;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.clean-sub {
+  font-family: "Vazirmatn", sans-serif;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+
+.clean-meta {
+  font-family: "Vazirmatn", sans-serif;
+  font-size: 0.95rem;
+  color: var(--pause);
+}
+
+.clean-heading {
+  font-family: "Scheherazade New", "Vazirmatn", serif;
+  font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--loud);
+}
+
+.clean-body {
+  font-family: "Scheherazade New", "Vazirmatn", serif;
+  font-size: clamp(1.45rem, 2.8vw, 1.85rem);
+  line-height: 2.35;
+  color: var(--ink);
+  text-align: justify;
+}
+
+.clean-line {
+  font-family: "Scheherazade New", "Vazirmatn", serif;
+  font-size: clamp(1.55rem, 3.2vw, 2rem);
+  line-height: 2.2;
+  color: var(--ink);
+  font-weight: 700;
+}

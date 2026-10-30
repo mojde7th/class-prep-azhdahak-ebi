@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BlockCard } from './components/BlockCard'
+import { CleanRead } from './components/CleanRead'
 import { Legend } from './components/Legend'
 import { ShareLinks } from './components/ShareLinks'
 import { SongPanel } from './components/SongPanel'
@@ -7,18 +8,29 @@ import { Vocab } from './components/Vocab'
 import { azhdahakBlocks, azhdahakMeta } from './data/azhdahak'
 import { ebiMeta } from './data/ebi'
 
-type Tab = 'azhdahak' | 'ebi' | 'vocab' | 'plan' | 'share'
+type Tab =
+  | 'clean-azhdahak'
+  | 'clean-ebi'
+  | 'azhdahak'
+  | 'ebi'
+  | 'vocab'
+  | 'plan'
+  | 'share'
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>('share')
+  const [tab, setTab] = useState<Tab>('clean-azhdahak')
 
   const tabs: { id: Tab; label: string }[] = [
+    { id: 'clean-azhdahak', label: 'متن اژدهاک' },
+    { id: 'clean-ebi', label: 'متن ابی' },
     { id: 'share', label: 'لینک و کیوآر' },
-    { id: 'azhdahak', label: 'اژدهاک' },
-    { id: 'ebi', label: 'شب مرد تنها' },
+    { id: 'azhdahak', label: 'نشانهٔ اژدهاک' },
+    { id: 'ebi', label: 'نشانهٔ ابی' },
     { id: 'vocab', label: 'تلفظ' },
     { id: 'plan', label: 'پلان کلاس' },
   ]
+
+  const showLegend = tab === 'azhdahak' || tab === 'ebi'
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 py-6 md:px-6 md:py-10">
@@ -30,17 +42,17 @@ export default function App() {
           برخوانی و ترانه
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--ink-soft)] md:text-base">
-          دو متن هم‌سطح برای کلاس: پنج صفحهٔ اول «{azhdahakMeta.title}» و متن
-          کامل «{ebiMeta.title}»ی ابی؛ هر دو با اوج، کشش، مکث و تلفظ.
+          متن کامل اژدهاک و شب مرد تنها با فونت بزرگ و بدون توضیح؛ به‌علاوه
+          نشانه‌گذاری تمرینی.
         </p>
       </header>
 
       <div className="mb-5 grid gap-3 md:grid-cols-2">
         <button
           type="button"
-          onClick={() => setTab('azhdahak')}
+          onClick={() => setTab('clean-azhdahak')}
           className={`rounded-2xl border p-4 text-right transition ${
-            tab === 'azhdahak'
+            tab === 'clean-azhdahak'
               ? 'border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]'
               : 'border-[var(--line)] bg-white/55 text-[var(--ink)] hover:border-[var(--ink-soft)]'
           }`}
@@ -49,18 +61,18 @@ export default function App() {
           <div className="mt-1 literary text-2xl font-bold">{azhdahakMeta.title}</div>
           <div
             className={`mt-2 text-sm leading-6 ${
-              tab === 'azhdahak' ? 'opacity-85' : 'text-[var(--ink-soft)]'
+              tab === 'clean-azhdahak' ? 'opacity-85' : 'text-[var(--ink-soft)]'
             }`}
           >
-            {azhdahakMeta.subtitle} · بندبه‌بند با نشانه‌گذاری
+            متن کامل · فونت بزرگ · بدون توضیح
           </div>
         </button>
 
         <button
           type="button"
-          onClick={() => setTab('ebi')}
+          onClick={() => setTab('clean-ebi')}
           className={`rounded-2xl border p-4 text-right transition ${
-            tab === 'ebi'
+            tab === 'clean-ebi'
               ? 'border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]'
               : 'border-[var(--line)] bg-white/55 text-[var(--ink)] hover:border-[var(--ink-soft)]'
           }`}
@@ -69,10 +81,10 @@ export default function App() {
           <div className="mt-1 literary text-2xl font-bold">{ebiMeta.title}</div>
           <div
             className={`mt-2 text-sm leading-6 ${
-              tab === 'ebi' ? 'opacity-85' : 'text-[var(--ink-soft)]'
+              tab === 'clean-ebi' ? 'opacity-85' : 'text-[var(--ink-soft)]'
             }`}
           >
-            {ebiMeta.subtitle} · همان قالب نشانه‌گذاری
+            متن کامل · فونت بزرگ · بدون توضیح
           </div>
         </button>
       </div>
@@ -94,9 +106,11 @@ export default function App() {
         ))}
       </nav>
 
-      {tab !== 'share' && <Legend />}
+      {showLegend && <Legend />}
 
       <main className="mt-5 space-y-5">
+        {tab === 'clean-azhdahak' && <CleanRead work="azhdahak" />}
+        {tab === 'clean-ebi' && <CleanRead work="ebi" />}
         {tab === 'share' && <ShareLinks />}
 
         {tab === 'azhdahak' && (
@@ -125,53 +139,17 @@ export default function App() {
             <div className="rounded-2xl border border-[var(--line)] bg-white/55 p-5 md:p-6">
               <h2 className="text-xl font-extrabold">پلان سریع قبل از کلاس</h2>
               <ol className="mt-4 list-decimal space-y-3 pr-5 text-sm leading-7 text-[var(--ink-soft)]">
-                <li>
-                  واژه‌نامهٔ هر دو متن را یک‌دور بلند بخوان؛ مخصوصاً غریو، رشک،
-                  آذرخش، قلندر، غربت، پیمونه.
-                </li>
-                <li>
-                  اژدهاک: بند یکم را تا «آذرخش» تمرین کن؛ این اولین اوج توست.
-                </li>
-                <li>
-                  اژدهاک: بند سوم را روی تکرار «پس تازیانه بود و تن» ریتم بگیر.
-                </li>
-                <li>
-                  ابی: ترجیع «نه مرد قلندر…» را دو بار با اوج بخوان.
-                </li>
-                <li>
-                  ابی: خط «شبِ مردِ تنها، شبِ بی‌تو مردن» را آهسته و سنگین جدا
-                  تمرین کن.
-                </li>
+                <li>اول از زبانهٔ متن اژدهاک یا متن ابی یک‌بار کامل بخوان.</li>
+                <li>بعد برای تمرین لحن برو سراغ نشانه‌گذاری.</li>
+                <li>ترجیع ابی و بند تازیانه را جدا تکرار کن.</li>
               </ol>
-            </div>
-
-            <div className="rounded-2xl border border-[var(--line)] bg-white/55 p-5 md:p-6">
-              <h2 className="text-xl font-extrabold">قانون طلایی خوانش</h2>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--ink-soft)]">
-                <li>خط‌تیره در اژدهاک = مکث نمایشی. عجله نکن.</li>
-                <li>جمله‌های کوتاه پشت‌سرهم را جدا جدا بزن؛ مثل ضرب طبل.</li>
-                <li>هر اوج را با فرود جبران کن؛ وگرنه گوش مخاطب خسته می‌شود.</li>
-                <li>
-                  در اژدهاک تو «اژدهاک» هستی؛ در ترانه تو عاشقِ شب‌زنده‌داری. دو
-                  شخصیت، دو لحن.
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-[var(--line)] bg-[var(--stage)] p-5 md:p-6">
-              <h2 className="text-xl font-extrabold">اگر وقت کم بود</h2>
-              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-                چهار قله: ۱) شروع بند یکم تا دماوند ۲) صحنهٔ تازیانه و «خون!» ۳)
-                «این مارِ کینه بود» ۴) ترجیع ابی + «شبِ بی‌تو مردن». همین برای
-                کلاس امروز کافی است.
-              </p>
             </div>
           </section>
         )}
       </main>
 
       <footer className="mt-10 border-t border-[var(--line)] pt-4 text-center text-xs text-[var(--pause)]">
-        اژدهاک · شب مرد تنها · نشانه‌گذاری برای تمرین شخصی خوانش کلاسی
+        اژدهاک · شب مرد تنها · خوانش کلاسی
       </footer>
     </div>
   )
