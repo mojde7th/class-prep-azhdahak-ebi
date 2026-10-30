@@ -1,12 +1,19 @@
 import { vocab } from '../data/azhdahak'
+import { ebiVocab } from '../data/ebi'
 
-export function Vocab() {
+function VocabTable({
+  title,
+  hint,
+  rows,
+}: {
+  title: string
+  hint: string
+  rows: { word: string; phon: string; mean: string }[]
+}) {
   return (
     <section className="rounded-2xl border border-[var(--line)] bg-white/55 p-4 md:p-6">
-      <h2 className="mb-1 text-lg font-extrabold">واژه‌نامهٔ تلفظ</h2>
-      <p className="mb-4 text-sm leading-7 text-[var(--ink-soft)]">
-        قبل از کلاس این‌ها را یک‌بار بلند بخوان تا گیر نکنی.
-      </p>
+      <h2 className="mb-1 text-lg font-extrabold">{title}</h2>
+      <p className="mb-4 text-sm leading-7 text-[var(--ink-soft)]">{hint}</p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[28rem] border-collapse text-sm">
           <thead>
@@ -17,7 +24,7 @@ export function Vocab() {
             </tr>
           </thead>
           <tbody>
-            {vocab.map((v) => (
+            {rows.map((v) => (
               <tr key={v.word} className="border-b border-[var(--line)]/70">
                 <td className="px-2 py-2.5 font-bold">{v.word}</td>
                 <td className="phon px-2 py-2.5" dir="ltr">
@@ -30,5 +37,22 @@ export function Vocab() {
         </table>
       </div>
     </section>
+  )
+}
+
+export function Vocab() {
+  return (
+    <div className="space-y-5">
+      <VocabTable
+        title="واژه‌نامهٔ اژدهاک"
+        hint="قبل از کلاس این‌ها را یک‌بار بلند بخوان تا گیر نکنی."
+        rows={vocab}
+      />
+      <VocabTable
+        title="واژه‌نامهٔ شب مرد تنها"
+        hint="واژه‌های ترانهٔ ابی؛ مخصوصاً قلندر، غربت، پیمونه."
+        rows={ebiVocab}
+      />
+    </div>
   )
 }

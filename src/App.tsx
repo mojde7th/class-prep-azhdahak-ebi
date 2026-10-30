@@ -4,6 +4,7 @@ import { Legend } from './components/Legend'
 import { SongPanel } from './components/SongPanel'
 import { Vocab } from './components/Vocab'
 import { azhdahakBlocks, azhdahakMeta } from './data/azhdahak'
+import { ebiMeta } from './data/ebi'
 
 type Tab = 'azhdahak' | 'ebi' | 'vocab' | 'plan'
 
@@ -27,11 +28,52 @@ export default function App() {
           برخوانی و ترانه
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--ink-soft)] md:text-base">
-          پنج صفحهٔ اول «{azhdahakMeta.title}» از {azhdahakMeta.author} با
-          نشانه‌گذاری اوج، کشش و مکث؛ به‌همراه متن کامل «شب مرد تنها»ی ابی برای
-          خوانش کلاسی.
+          دو متن هم‌سطح برای کلاس: پنج صفحهٔ اول «{azhdahakMeta.title}» و متن
+          کامل «{ebiMeta.title}»ی ابی؛ هر دو با اوج، کشش، مکث و تلفظ.
         </p>
       </header>
+
+      <div className="mb-5 grid gap-3 md:grid-cols-2">
+        <button
+          type="button"
+          onClick={() => setTab('azhdahak')}
+          className={`rounded-2xl border p-4 text-right transition ${
+            tab === 'azhdahak'
+              ? 'border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]'
+              : 'border-[var(--line)] bg-white/55 text-[var(--ink)] hover:border-[var(--ink-soft)]'
+          }`}
+        >
+          <div className="text-xs opacity-80">{azhdahakMeta.author}</div>
+          <div className="mt-1 literary text-2xl font-bold">{azhdahakMeta.title}</div>
+          <div
+            className={`mt-2 text-sm leading-6 ${
+              tab === 'azhdahak' ? 'opacity-85' : 'text-[var(--ink-soft)]'
+            }`}
+          >
+            {azhdahakMeta.subtitle} · بندبه‌بند با نشانه‌گذاری
+          </div>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setTab('ebi')}
+          className={`rounded-2xl border p-4 text-right transition ${
+            tab === 'ebi'
+              ? 'border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]'
+              : 'border-[var(--line)] bg-white/55 text-[var(--ink)] hover:border-[var(--ink-soft)]'
+          }`}
+        >
+          <div className="text-xs opacity-80">{ebiMeta.artist}</div>
+          <div className="mt-1 literary text-2xl font-bold">{ebiMeta.title}</div>
+          <div
+            className={`mt-2 text-sm leading-6 ${
+              tab === 'ebi' ? 'opacity-85' : 'text-[var(--ink-soft)]'
+            }`}
+          >
+            {ebiMeta.subtitle} · همان قالب نشانه‌گذاری
+          </div>
+        </button>
+      </div>
 
       <nav className="mb-5 flex flex-wrap gap-2">
         {tabs.map((t) => (
@@ -80,38 +122,31 @@ export default function App() {
               <h2 className="text-xl font-extrabold">پلان سریع قبل از کلاس</h2>
               <ol className="mt-4 list-decimal space-y-3 pr-5 text-sm leading-7 text-[var(--ink-soft)]">
                 <li>
-                  واژه‌نامه را یک‌دور بلند بخوان؛ مخصوصاً غریو، رشک، آذرخش، تازیانه،
-                  گودنا، نهیب.
+                  واژه‌نامهٔ هر دو متن را یک‌دور بلند بخوان؛ مخصوصاً غریو، رشک،
+                  آذرخش، قلندر، غربت، پیمونه.
                 </li>
                 <li>
-                  بند یکم را فقط تا «آذرخش» تمرین کن؛ این اولین اوج توست.
+                  اژدهاک: بند یکم را تا «آذرخش» تمرین کن؛ این اولین اوج توست.
                 </li>
                 <li>
-                  بند سوم را روی تکرار «پس تازیانه بود و تن» ریتم بگیر؛ مثل ورد.
+                  اژدهاک: بند سوم را روی تکرار «پس تازیانه بود و تن» ریتم بگیر.
                 </li>
                 <li>
-                  پایان بند سوم «این مارِ کینه بود» را جدا تمرین کن؛ باید واضح و
-                  تلخ بنشیند.
+                  ابی: ترجیع «نه مرد قلندر…» را دو بار با اوج بخوان.
                 </li>
                 <li>
-                  ترانه: ترجیع «نه مرد قلندر…» و خط «شبِ بی‌تو مردن» را دو بار با
-                  اوج و دو بار آهسته بخوان.
+                  ابی: خط «شبِ مردِ تنها، شبِ بی‌تو مردن» را آهسته و سنگین جدا
+                  تمرین کن.
                 </li>
               </ol>
             </div>
 
             <div className="rounded-2xl border border-[var(--line)] bg-white/55 p-5 md:p-6">
-              <h2 className="text-xl font-extrabold">قانون طلایی برخوانی</h2>
+              <h2 className="text-xl font-extrabold">قانون طلایی خوانش</h2>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--ink-soft)]">
-                <li>
-                  خط‌تیره در متن بیضایی = مکث نمایشی. عجله نکن.
-                </li>
-                <li>
-                  جمله‌های کوتاه پشت‌سرهم را جدا جدا بزن؛ مثل ضرب طبل.
-                </li>
-                <li>
-                  هر اوج را با فرود جبران کن؛ وگرنه گوش مخاطب خسته می‌شود.
-                </li>
+                <li>خط‌تیره در اژدهاک = مکث نمایشی. عجله نکن.</li>
+                <li>جمله‌های کوتاه پشت‌سرهم را جدا جدا بزن؛ مثل ضرب طبل.</li>
+                <li>هر اوج را با فرود جبران کن؛ وگرنه گوش مخاطب خسته می‌شود.</li>
                 <li>
                   در اژدهاک تو «اژدهاک» هستی؛ در ترانه تو عاشقِ شب‌زنده‌داری. دو
                   شخصیت، دو لحن.
@@ -122,9 +157,9 @@ export default function App() {
             <div className="rounded-2xl border border-[var(--line)] bg-[var(--stage)] p-5 md:p-6">
               <h2 className="text-xl font-extrabold">اگر وقت کم بود</h2>
               <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-                فقط این سه نقطه را کامل مسلط شو: ۱) شروع بند یکم تا دماوند ۲)
-                صحنهٔ تازیانه و «خون!» ۳) «این مارِ کینه بود» + ترجیع ترانهٔ ابی.
-                همین سه قله برای کلاس امروز کافی‌اند.
+                چهار قله: ۱) شروع بند یکم تا دماوند ۲) صحنهٔ تازیانه و «خون!» ۳)
+                «این مارِ کینه بود» ۴) ترجیع ابی + «شبِ بی‌تو مردن». همین برای
+                کلاس امروز کافی است.
               </p>
             </div>
           </section>
@@ -132,7 +167,7 @@ export default function App() {
       </main>
 
       <footer className="mt-10 border-t border-[var(--line)] pt-4 text-center text-xs text-[var(--pause)]">
-        متن اژدهاک از پنج صفحهٔ اول فایل کلاس · نشانه‌گذاری برای تمرین شخصی خوانش
+        اژدهاک · شب مرد تنها · نشانه‌گذاری برای تمرین شخصی خوانش کلاسی
       </footer>
     </div>
   )
